@@ -106,16 +106,18 @@
 #define DELTA_SEGMENTS_PER_SECOND 160
 
 // Center-to-center distance of the holes in the diagonal push rods.
-#define DELTA_DIAGONAL_ROD 186.0 // mm
+#define DELTA_DIAGONAL_ROD 215.0 // mm
 
 // Horizontal offset from middle of printer to smooth rod center.
-#define DELTA_SMOOTH_ROD_OFFSET 128.0 // mm
+#define DELTA_SMOOTH_ROD_OFFSET 145.0 // mm
+//#define DELTA_SMOOTH_ROD_OFFSET 147.0 // mm
 
 // Horizontal offset of the universal joints on the end effector.
-#define DELTA_EFFECTOR_OFFSET 19.9 // mm
+#define DELTA_EFFECTOR_OFFSET 20.0 // mm
 
 // Horizontal offset of the universal joints on the carriages.
 #define DELTA_CARRIAGE_OFFSET 19.5 // mm
+//#define DELTA_CARRIAGE_OFFSET 20.0 // mm
 
 // Horizontal distance bridged by diagonal push rods when effector is centered.
 #define DELTA_RADIUS (DELTA_SMOOTH_ROD_OFFSET-DELTA_EFFECTOR_OFFSET-DELTA_CARRIAGE_OFFSET)
@@ -174,7 +176,7 @@
 #define TEMP_SENSOR_0 5
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
-#define TEMP_SENSOR_BED 0
+#define TEMP_SENSOR_BED 80
 
 // This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is to high the print will be aborted.
 //#define TEMP_SENSOR_1_AS_REDUNDANT
@@ -196,10 +198,13 @@
 // When temperature exceeds max temp, your heater will be switched off.
 // This feature exists to protect your hotend from overheating accidentally, but *NOT* from thermistor short/failure!
 // You should use MINTEMP for thermistor short/failure protection.
-#define HEATER_0_MAXTEMP 275
-#define HEATER_1_MAXTEMP 275
-#define HEATER_2_MAXTEMP 275
+//#define HEATER_0_MAXTEMP 275
+//#define HEATER_1_MAXTEMP 275
+//#define HEATER_2_MAXTEMP 275
 #define BED_MAXTEMP 150
+#define HEATER_0_MAXTEMP 300
+#define HEATER_1_MAXTEMP 215
+#define HEATER_2_MAXTEMP 215
 
 // If your bed has low resistance e.g. .6 ohm and throws the fuse you can duty cycle it to reduce the
 // average current. The value should be an integer and the heat bed will be turned on for 1 interval of
@@ -320,7 +325,7 @@
 // The pullups are needed if you directly connect a mechanical endswitch between the signal and ground pins.
 const bool X_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Y_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
-const bool Z_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
+const bool Z_MIN_ENDSTOP_INVERTING = true; // set to true to invert the logic of the endstop.
 const bool X_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Y_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
@@ -385,9 +390,9 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   #define FRONT_PROBE_BED_POSITION -DELTA_PROBABLE_RADIUS
 
   // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
-  #define X_PROBE_OFFSET_FROM_EXTRUDER -1.0
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER 21.0
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -6.7
+  #define X_PROBE_OFFSET_FROM_EXTRUDER -25.0
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER -10.0
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -22.5
 
   #define Z_RAISE_BEFORE_HOMING 4       // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                         // Be sure you have this distance over your Z_MAX_POS in case
@@ -449,23 +454,34 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // For deltabots this means top and center of the Cartesian print volume.
 #define MANUAL_X_HOME_POS 0
 #define MANUAL_Y_HOME_POS 0
-#define MANUAL_Z_HOME_POS 214  // For delta: Distance between nozzle and print surface after homing.
+//#define MANUAL_Z_HOME_POS 214  // For delta: Distance between nozzle and print surface after homing.
+//#define MANUAL_Z_HOME_POS 246.5 // Stock bed holders
+//#define MANUAL_Z_HOME_POS 245.8
+//#define MANUAL_Z_HOME_POS 246 // Yellow bed holders
+#define MANUAL_Z_HOME_POS 244.4 // Blue FRS bed holders
 
 //// MOVEMENT SETTINGS
 #define NUM_AXIS 4 // The axis order in all axis related arrays is X, Y, Z, E
-#define HOMING_FEEDRATE {200*60, 200*60, 200*60, 0}  // set the homing speeds (mm/min)
+#define HOMING_FEEDRATE {150*30, 150*30, 150*30, 0}  // set the homing speeds (mm/min)
 
 // default settings
 
-#define XYZ_FULL_STEPS_PER_ROTATION 200
-#define XYZ_MICROSTEPS 16
-#define XYZ_BELT_PITCH 2
-#define XYZ_PULLEY_TEETH 17
-#define XYZ_STEPS (XYZ_FULL_STEPS_PER_ROTATION * XYZ_MICROSTEPS / double(XYZ_BELT_PITCH) / double(XYZ_PULLEY_TEETH))
+//#define XYZ_FULL_STEPS_PER_ROTATION 200
+//#define XYZ_MICROSTEPS 16
+//#define XYZ_BELT_PITCH 2
+//#define XYZ_PULLEY_TEETH 16
+//#define XYZ_STEPS (XYZ_FULL_STEPS_PER_ROTATION * XYZ_MICROSTEPS / double(XYZ_BELT_PITCH) / double(XYZ_PULLEY_TEETH))
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {XYZ_STEPS, XYZ_STEPS, XYZ_STEPS, 100}
-#define DEFAULT_MAX_FEEDRATE          {200, 200, 200, 200}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {9000,9000,9000,9000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {XYZ_STEPS, XYZ_STEPS, XYZ_STEPS, 100}
+//#define DEFAULT_MAX_FEEDRATE          {200, 200, 200, 200}    // (mm/sec)
+//#define DEFAULT_MAX_ACCELERATION      {9000,9000,9000,9000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {100, 100, 100, 450}
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {100, 100, 100, 100.47095761381482} // Airtripper extruder
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {100, 100, 100, 450} // Planetary extruder
+#define DEFAULT_MAX_FEEDRATE          {500, 500, 500, 25}    // (mm/sec)
+//#define DEFAULT_MAX_ACCELERATION      {9000,9000,9000,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
+//#define DEFAULT_MAX_ACCELERATION      {9000,9000,9000,10000} // Airtripper extruder
+#define DEFAULT_MAX_ACCELERATION      {9000,9000,9000,900} // Planetary extruder
 
 #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  3000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
@@ -479,7 +495,9 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
 #define DEFAULT_XYJERK                20.0    // (mm/sec)
 #define DEFAULT_ZJERK                 20.0    // (mm/sec)
-#define DEFAULT_EJERK                 20.0    // (mm/sec)
+//#define DEFAULT_EJERK                 20.0    // (mm/sec)
+//#define DEFAULT_EJERK                 5.0 // Airtripper extruder
+#define DEFAULT_EJERK                 2.5 // Planetary extruder
 
 //===========================================================================
 //=============================Additional Features===========================
